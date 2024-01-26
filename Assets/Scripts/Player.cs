@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float _verticalMinAngle = -89;
     [SerializeField] private float _verticalMaxAngle = 89;
 
+    [Header("Weapon")]
+    [SerializeField] private Shotgun _shotgun;
+
     private Transform _transform;
     private float _cameraAngle = 0;
     private Vector3 _verticalVelocity;
@@ -30,6 +33,14 @@ public class Player : MonoBehaviour
     }
 
     private void Update()
+    {
+        Move();
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            _shotgun.Shoot(_camera.position, _camera.forward);
+    }
+
+    private void Move()
     {
         Vector3 forward = Vector3.ProjectOnPlane(_camera.forward, Vector3.up).normalized;
         Vector3 right = Vector3.ProjectOnPlane(_camera.right, Vector3.up).normalized;
